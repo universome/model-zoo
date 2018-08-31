@@ -15,9 +15,7 @@ class Encoder(nn.Module):
         self.vocab_src = vocab_src
         self.embed = nn.Embedding(len(vocab_src), config.d_model, padding_idx=vocab_src.stoi['<pad>'])
         self.pe = PositionalEncoding(config)
-        self.layers = nn.ModuleList([
-            EncoderLayer(config) for _ in range(config.n_layers)
-        ])
+        self.layer = EncoderLayer(config)
         self.dropout = nn.Dropout(config.dropout)
         self.norm = nn.LayerNorm(config.d_model)
         # self.noise = NoiseLayer(config.noiseness)
@@ -30,8 +28,8 @@ class Encoder(nn.Module):
         x = self.pe(x)
         # x = self.noise(x)
 
-        for layer in self.layers:
-            x = layer(x, mask)
+        for _ in range(self.config.n_steps):
+            x = self.layer(x, mask)
 
         return self.norm(x), mask
 

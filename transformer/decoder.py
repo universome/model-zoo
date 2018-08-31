@@ -16,9 +16,7 @@ class Decoder(nn.Module):
         self.vocab = vocab
         self.embed = nn.Embedding(len(vocab), config.d_model, padding_idx=vocab.stoi['<pad>'])
         self.pe = PositionalEncoding(config)
-        self.layers = nn.ModuleList([
-            DecoderLayer(config) for _ in range(config.n_layers)
-        ])
+        self.layer = DecoderLayer(config)
         self.linear_out = nn.Linear(config.d_model, len(vocab))
         self.norm = nn.LayerNorm(config.d_model)
 
@@ -30,8 +28,8 @@ class Decoder(nn.Module):
         x = x * np.sqrt(self.config.d_model)
         x = self.pe(x)
 
-        for layer in self.layers:
-            x = layer(encs, x, encs_mask, mask)
+        for _ in range(self.config.n_steps):
+            x = self.layer(encs, x, encs_mask, mask)
 
         x = self.norm(x)
         x = self.linear_out(x)
