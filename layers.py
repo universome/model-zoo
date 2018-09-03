@@ -24,7 +24,7 @@ class NoiseLayer(nn.Module):
         self.sigma = sigma
 
     def forward(self, x):
-        if not self.is_training: return x
+        if not self.training: return x
 
         noise = torch.zeros_like(x).normal_()
 
