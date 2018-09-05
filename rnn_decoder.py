@@ -7,7 +7,6 @@ class RNNDecoder(nn.Module):
     def __init__(self, emb_size, hid_size, vocab, dropword_p=0):
         super(RNNDecoder, self).__init__()
 
-        self.hid_size = hid_size
         self.embed = nn.Embedding(len(vocab), emb_size, padding_idx=vocab.stoi['<pad>'])
         self.dropword = Dropword(dropword_p)
         self.gru = nn.GRU(emb_size, hid_size, batch_first=True)
