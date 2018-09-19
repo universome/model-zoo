@@ -13,7 +13,7 @@ class RNNLM(nn.Module):
 
     def forward(self, z, x):
         x = self.embed(x)
-        states, _ = self.gru(x, z.unsqueeze(0))
+        states, _ = self.gru(x, z)
         out = self.out(states)
 
         return out
