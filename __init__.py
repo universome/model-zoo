@@ -5,6 +5,7 @@ from .rnn_encoder import RNNEncoder
 from .rnn_decoder import RNNDecoder
 from .mernn_encoder import MERNNEncoder
 from .act_rnn_decoder import ACTRNNDecoder
+from .conditional_lm import ConditionalLM
 
 __all__ = [
     "FFN",
@@ -14,4 +15,5 @@ __all__ = [
     "RNNDecoder",
     "MERNNEncoder",
     "ACTRNNDecoder",
+    "ConditionalLM",
 ]
