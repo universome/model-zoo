@@ -11,12 +11,12 @@ class RNNLM(nn.Module):
         self.gru = nn.GRU(size, size, batch_first=True, num_layers=n_layers)
         self.out = nn.Linear(size, len(vocab))
 
-    def forward(self, z, x):
+    def forward(self, z, x, return_z=False):
         x = self.embed(x)
-        states, _ = self.gru(x, z)
+        states, z = self.gru(x, z)
         out = self.out(states)
 
-        return out
+        return (out, z) if return_z else out
 
     def inference(self, x, vocab, max_len=100, eos_token='<eos>'):
         "Continue sequence given a subsequence"
