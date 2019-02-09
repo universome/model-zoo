@@ -16,7 +16,6 @@ class RevNet(nn.Module):
     def __init__(self, input_size:int, channels:List[int]):
         super(RevNet, self).__init__()
 
-        # self.channels = [1, 1, 4, 4, 16, 16, 64, 64, 64, 64, 16, 16, 4, 4, 1, 1]
         masks = self.create_masks(input_size, channels)
         self.layers = nn.ModuleList([RevLayer(m) for m in masks])
 

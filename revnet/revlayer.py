@@ -15,6 +15,9 @@ class RevLayer(nn.Module):
         self.bias = ResNetBlock(self.mask.size(0))
 
     def forward(self, x:torch.Tensor) -> torch.Tensor:
+        if self.mask.device != x.device:
+            self.mask = self.mask.to(x.device)
+
         out = x.view(x.size(0), *self.mask.size())
         out = self.actnorm(out)
         changing, same = out * self.mask, out * (1 - self.mask)
@@ -24,6 +27,9 @@ class RevLayer(nn.Module):
         return out
 
     def reverse_forward(self, y:torch.Tensor) -> torch.Tensor:
+        if self.mask.device != y.device:
+            self.mask = self.mask.to(y.device)
+
         out = y.view(y.size(0), *self.mask.size())
         changing, same = out * self.mask, out * (1 - self.mask)
         changing = (changing - self.bias(same)) / (self.mult(same) + 2).sigmoid()

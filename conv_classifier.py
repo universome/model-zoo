@@ -16,9 +16,6 @@ class ConvClassifier(nn.Module):
 
     def forward(self, x):
         out = x
-        n = x.size(0)
-
-        out = out.view(n, 1, 28, 28)
 
         out = self.conv1(out)
         out = self.conv2(out)
@@ -26,7 +23,7 @@ class ConvClassifier(nn.Module):
         out = self.conv4(out)
         out = self.pool(out)
 
-        out = out.view(n, -1)
+        out = out.view(x.size(0), -1)
         out = self.ffn(out)
 
         return out

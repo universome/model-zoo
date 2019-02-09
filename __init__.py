@@ -6,6 +6,9 @@ from .rnn_decoder import RNNDecoder
 from .mernn_encoder import MERNNEncoder
 from .act_rnn_decoder import ACTRNNDecoder
 from .conditional_lm import ConditionalLM
+from .revnet import RevNet
+from .conv_classifier import ConvClassifier
+
 
 __all__ = [
     "FFN",
@@ -16,4 +19,6 @@ __all__ = [
     "MERNNEncoder",
     "ACTRNNDecoder",
     "ConditionalLM",
+    "RevNet",
+    "ConvClassifier",
 ]
