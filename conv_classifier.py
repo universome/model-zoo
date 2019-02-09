@@ -12,7 +12,7 @@ class ConvClassifier(nn.Module):
         self.conv3 = nn.Sequential(nn.Conv2d(32, 128, 5), nn.BatchNorm2d(128), nn.ReLU())
         self.conv4 = nn.Sequential(nn.Conv2d(128, 128, 3), nn.BatchNorm2d(128), nn.ReLU())
         self.pool = nn.AdaptiveAvgPool2d((1,1))
-        self.ffn = nn.Sequential(nn.Linear(128, 32), nn.ReLU(), nn.Linear(32, 1))
+        self.ffn = nn.Sequential(nn.Linear(128, 32), nn.BatchNorm1d(32), nn.ReLU(), nn.Linear(32, 1))
 
     def forward(self, x):
         out = x
