@@ -11,8 +11,8 @@ class RevLayer(nn.Module):
 
         self.mask = mask
         self.actnorm = ActNorm(self.mask.size(0))
-        self.mult = ResNetBlock(self.mask.size(0))
-        self.bias = ResNetBlock(self.mask.size(0))
+        self.mult = ConvBlock(self.mask.size(0))
+        self.bias = ConvBlock(self.mask.size(0))
 
     def forward(self, x:torch.Tensor) -> torch.Tensor:
         if self.mask.device != x.device:
@@ -39,24 +39,17 @@ class RevLayer(nn.Module):
         return out
 
 
-class ResNetBlock(nn.Module):
+class ConvBlock(nn.Module):
     def __init__(self, in_channels:int):
-        super(ResNetBlock, self).__init__()
+        super(ConvBlock, self).__init__()
 
         self.conv1 = nn.Conv2d(in_channels, in_channels, 3, padding=1)
         self.bn1 = nn.BatchNorm2d(in_channels)
         self.relu = nn.ReLU(inplace=True)
-        self.conv2 = nn.Conv2d(in_channels, in_channels, 3, padding=1)
-        self.bn2 = nn.BatchNorm2d(in_channels)
 
     def forward(self, x):
-        identity = x
-
         out = self.conv1(x)
         out = self.bn1(out)
         out = self.relu(out)
 
-        out = self.conv2(out)
-        out = self.bn2(out)
-
-        return out + identity
+        return out
