@@ -7,7 +7,7 @@ from .mernn_encoder import MERNNEncoder
 from .act_rnn_decoder import ACTRNNDecoder
 from .conditional_lm import ConditionalLM
 from .revnet import RevNet
-from .conv_classifier import ConvClassifier
+from .conv_discriminator import ConvDiscriminator
 
 
 __all__ = [
@@ -20,5 +20,5 @@ __all__ = [
     "ACTRNNDecoder",
     "ConditionalLM",
     "RevNet",
-    "ConvClassifier",
+    "ConvDiscriminator",
 ]
