@@ -43,7 +43,7 @@ class ActNorm(nn.Module):
         if not self.initialized:
             self.initialize(x)
 
-        return (x - self.shift) / self.scale
+        return (x - self.shift) / (self.scale + 1e-8)
 
     def reverse_forward(self, y):
         return y * self.scale + self.shift
