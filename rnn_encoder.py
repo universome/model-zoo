@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from src.models.layers import Dropword, NoiseLayer
+from .layers import Dropword, NoiseLayer
 
 
 class RNNEncoder(nn.Module):

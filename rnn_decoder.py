@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-from src.models.layers import Dropword
+from .layers import Dropword
 
 
 class RNNDecoder(nn.Module):
