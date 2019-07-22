@@ -74,3 +74,11 @@ class Flatten(nn.Module):
 
     def forward(self, x):
         return x.view(x.size(0), -1)
+
+
+class Noop(nn.Module):
+    def __init__(self):
+        super(Noop, self).__init__()
+
+    def forward(self, x):
+        return x
