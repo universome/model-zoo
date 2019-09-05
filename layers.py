@@ -76,10 +76,9 @@ class Flatten(nn.Module):
         return x.view(x.size(0), -1)
 
 
-# TODO: rename into Identity
-class Noop(nn.Module):
+class Identity(nn.Module):
     def __init__(self):
-        super(Noop, self).__init__()
+        super(Identity, self).__init__()
 
     def forward(self, x):
         return x
